@@ -1,0 +1,164 @@
+{
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out",
+    "email": "Email",
+    "name": "Name"
+  },
+  "menu": {
+    "home": "Home",
+    "profile": "Profile"
+  },
+  "common": {
+    "helloWorld": "Hello world!",
+    "password": "Password",
+    "next": "Next",
+    "verify": "Verify",
+    "continue": "Continue",
+    "hello": "Hello",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back"
+  },
+  "error": {
+    "googleSignInFailed": "Failed to sign in with Google. Please try again later or contact support.",
+    "appleSignInFailed": "Failed to sign in with Apple. Please try again later or contact support.",
+    "emailAndPasswordRequired": "Email and password are required.",
+    "userAlreadyExists": "A user with this email already exists. Please sign in instead.",
+    "emailExists": "This email address is already registered. Please sign in instead."
+  },
+  "validation": {
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "passwordUppercase": "Password must contain at least 1 uppercase letter",
+    "passwordNumber": "Password must contain at least 1 number",
+    "passwordSpecial": "Password must contain at least 1 special character",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email address",
+    "confirmPasswordRequired": "Please confirm your password",
+    "currentPasswordRequired": "Current password is required",
+    "passwordMismatch": "Passwords do not match",
+    "firstNameRequired": "First name is required",
+    "lastNameRequired": "Last name is required",
+    "birthDateRequired": "Date of birth is required",
+    "genderRequired": "Gender is required",
+    "required": "This field is required",
+    "phoneRequired": "Phone number is required",
+    "phoneNumbersOnly": "Phone number can only contain digits and +",
+    "phoneMinLength": "Phone number must be at least 8 digits"
+  },
+  "signIn": {
+    "loginToYourAccount": "Login to your account",
+    "youDontHaveAnAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "emailAddress": "Email Address",
+    "forgotPassword": "Forgot Password?",
+    "exampleEmail": "example@gmail.com",
+    "signIn": "Login",
+    "signingIn": "Logging in...",
+    "orConnectWith": "or connect with"
+  },
+  "signUp": {
+    "noAccountSignUp": "No account?\\nSign up",
+    "alreadyHaveAccount": "Already have an account?",
+    "login": "Login",
+    "createPassword": "Create a password",
+    "confirmPassword": "Confirm password",
+    "passwordRequirements": "Min. 8 characters, 1 uppercase, 1 number, 1 special character",
+    "confirmPasswordPlaceholder": "Repeat password",
+    "agreeByCreatingAccount": "By creating an account, you agree to the <1>Terms of Use</1> and our <3>Privacy Policy</3>.",
+    "createAccount": "Create account"
+  },
+  "verifyEmail": {
+    "checkMyEmail": "Check my email",
+    "codeSentToEmail": "A code has been sent to",
+    "didntReceiveCode": "Didn't receive the code?",
+    "resendCode": "Resend code"
+  },
+  "emailVerified": {
+    "emailVerified": "Email verified",
+    "emailVerifiedDescription": "Your email address has been successfully verified",
+    "completeProfile": "Complete my profile"
+  },
+  "completeProfile": {
+    "step1": {
+      "title": "Complete the last steps",
+      "description": "Enter your personal information to create your profile.",
+      "firstName": "First name",
+      "firstNamePlaceholder": "Your first name",
+      "lastName": "Last name",
+      "lastNamePlaceholder": "Your last name",
+      "birthDate": "Date of birth",
+      "birthDatePlaceholder": "DD/MM/YYYY",
+      "gender": "Gender",
+      "genderFemale": "Female",
+      "genderMale": "Male",
+      "genderNonBinary": "Non-binary",
+      "progress": "Step 1/1"
+    }
+  },
+  "forgotPassword": {
+    "title": "Forgot password?",
+    "description": "To reset your password, enter your email address below.\\n\\nYou will receive a link by email to create a new password."
+  },
+  "passwordChanged": {
+    "title": "Your password has been updated",
+    "description": "You can now log in with\\nyour new password."
+  },
+  "passwordResetSent": {
+    "title": "It's sent!",
+    "description": "A reset link has been sent to",
+    "didntReceiveEmail": "Didn't receive an email? Check your spam or try again"
+  },
+  "resetPassword": {
+    "title": "Create a new password",
+    "description": "To secure your account, create a password containing at least 8 characters, an uppercase letter, a lowercase letter, a number and a special character (e.g.: !, ?, @).",
+    "newPassword": "Create a new password",
+    "newPasswordPlaceholder": "New password"
+  },
+  "profileCompleted": {
+    "title": "Congratulations!",
+    "description": "Your account is ready. You can\\nstart using the app!",
+    "explore": "Start Exploring!"
+  },
+  "settings": {
+    "title": "Settings",
+    "editProfile": "Edit Profile",
+    "changePassword": "Change Password",
+    "language": "Language",
+    "contactSupport": "Contact Support",
+    "termOfUse": "Terms of Use",
+    "privacyPolicy": "Privacy Policy",
+    "signOut": "Sign Out"
+  },
+  "editProfile": {
+    "title": "Edit Profile",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "birthDate": "Date of birth",
+    "gender": "Gender",
+    "phone": "Phone number",
+    "bio": "Bio",
+    "displayName": "Display name",
+    "save": "Save Changes"
+  },
+  "changePassword": {
+    "title": "Change Password",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "update": "Update Password"
+  },
+  "landing": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  },
+  "onboarding": {
+    "step1Text": "Welcome to\\nYour App.",
+    "step2Text": "Build amazing\\nexperiences.",
+    "step3Text": "Let's get\\nstarted."
+  }
+}

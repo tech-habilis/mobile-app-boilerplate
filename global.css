@@ -1,0 +1,40 @@
+@import "tailwindcss";
+@import "uniwind";
+
+@theme {
+  --color-primary: #457ce2;
+  --color-secondary: #06234b;
+  --color-tertiary: #ff9e69;
+  --color-decorative: #ffd1a7;
+  --color-text: #04152d;
+  --color-subtleText: #727988;
+  --color-stroke: #e5e5eb;
+  --color-accent: #424f65;
+  --color-light: #eeeff9;
+  --color-warmLight: #fff7f3;
+  --color-success: #4fd365;
+  --color-error: #ff604b;
+  --color-secondary-500: #1a1c1e;
+  --color-secondary-grey: #bababa;
+  --color-green: #3fa951;
+  --color-error2: #e32828;
+
+  /* Default font family - Inter */
+  --font-sans: "Inter_18pt-Regular";
+  --font-sans-medium: "Inter_18pt-Medium";
+  --font-sans-semibold: "Inter_18pt-SemiBold";
+  --font-sans-bold: "Inter_18pt-Bold";
+
+  /* Font families - LeagueSpartan */
+  --font-ls: "LeagueSpartan-Regular";
+  --font-ls-medium: "LeagueSpartan-Medium";
+  --font-ls-semibold: "LeagueSpartan-SemiBold";
+  --font-ls-bold: "LeagueSpartan-Bold";
+  --font-ls-extrabold: "LeagueSpartan-ExtraBold";
+
+  /* Font families - Inter */
+  --font-inter: "Inter_18pt-Regular";
+  --font-inter-medium: "Inter_18pt-Medium";
+  --font-inter-semibold: "Inter_18pt-SemiBold";
+  --font-inter-bold: "Inter_18pt-Bold";
+}
