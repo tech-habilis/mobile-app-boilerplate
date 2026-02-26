@@ -4,14 +4,11 @@ import Text from "@/components/text";
 import { ROUTE } from "@/constants/route";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { ImageBackground, View } from "react-native";
+import { View } from "react-native";
 
 export default function EmailVerified() {
   return (
-    <ImageBackground
-      source={require("../assets/images/mail-verified.png")}
-      className="size-full"
-    >
+    <View>
       <StatusBar style="light" />
       <View className="py-safe justify-center items-center flex-1 gap-2 mx-4">
         <View className="grow" />
@@ -30,10 +27,10 @@ export default function EmailVerified() {
           className="w-full mb-6"
           text="emailVerified.completeProfile"
           onPress={() => {
-            router.replace(ROUTE.COMPLETE_PROFILE);
+            router.replace(ROUTE.ROOT);
           }}
         />
       </View>
-    </ImageBackground>
+    </View>
   );
 }

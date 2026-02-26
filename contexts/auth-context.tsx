@@ -21,7 +21,6 @@ import {
 import { router } from "expo-router";
 import { toast } from "@/components/toast";
 import { supabase, supabaseUtils } from "@/utilities/supabase";
-import { getUserProfile } from "@/utilities/supabase/profile";
 import { TSession } from "@/types";
 import { ROUTE, ROUTE_NAME } from "@/constants/route";
 import { useTranslation } from "react-i18next";
@@ -64,10 +63,8 @@ type TAuthContext = {
   canSignInWithApple: boolean;
   loggingInWith: TSignInMethod | null;
   isFirstOpen: boolean;
-  showCompleteProfileForm: boolean;
   isResettingPassword: boolean;
   isUpdatingPassword: boolean;
-  isCheckingProfileCompletion: boolean;
 };
 
 const AuthContext = createContext<TAuthContext>({
@@ -93,46 +90,9 @@ const AuthContext = createContext<TAuthContext>({
   canSignInWithApple: false,
   loggingInWith: null,
   isFirstOpen: false,
-  showCompleteProfileForm: false,
   isResettingPassword: false,
   isUpdatingPassword: false,
-  isCheckingProfileCompletion: false,
 });
-
-// Helper function to sync auth metadata from database profile
-// This ensures that if user has updated their profile in the database,
-// those values take precedence over social provider data on re-login
-const syncAuthMetadataFromProfile = async (userId: string) => {
-  try {
-    const profile = await getUserProfile(userId);
-
-    // Only update if user has completed onboarding and has profile data
-    if (profile.onboarding_date) {
-      const metadataUpdates: Record<string, string | null> = {};
-
-      // Use name from database if available, otherwise don't override
-      if (profile.first_name || profile.last_name) {
-        metadataUpdates.name =
-          `${profile.first_name || ""} ${profile.last_name || ""}`.trim();
-      }
-
-      // Use avatar from database if available, otherwise don't override
-      if (profile.avatar_url) {
-        metadataUpdates.avatar_url = profile.avatar_url;
-      }
-
-      // Only update if we have something to update
-      if (Object.keys(metadataUpdates).length > 0) {
-        await supabase.auth.updateUser({
-          data: metadataUpdates,
-        });
-      }
-    }
-  } catch (error) {
-    console.error("Error syncing auth metadata from profile:", error);
-    // Don't fail sign-in if sync fails
-  }
-};
 
 export function useSession() {
   const value = use(AuthContext);
@@ -155,8 +115,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
   const [fetchingSession, setFetchingSession] = useState(false);
   const [isResettingPassword, setIsResettingPassword] = useState(false);
   const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
-  const [isCheckingProfileCompletion, setIsCheckingProfileCompletion] =
-    useState(false);
   const [showCompleteProfileForm, setShowCompleteProfileForm] = useState(false);
   const [
     [isLoadingFirstOpenTimestamp, firstOpenTimestamp],
@@ -164,27 +122,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
   ] = useStorageState(STORAGE_KEY.FIRST_OPEN_TIMESTAMP);
   const isFirstOpen =
     !isLoadingFirstOpenTimestamp && firstOpenTimestamp === null;
-
-  // Function to check if user has completed onboarding
-  const checkProfileCompletion = useCallback(async (userId: string) => {
-    if (!userId) {
-      setShowCompleteProfileForm(true);
-      return;
-    }
-
-    setIsCheckingProfileCompletion(true);
-    try {
-      const profile = await getUserProfile(userId);
-      // Show complete profile form if onboarding_date is not set
-      setShowCompleteProfileForm(!profile.onboarding_date);
-    } catch (error) {
-      console.error("Error checking profile completion:", error);
-      // If error fetching profile, assume not completed and show the form
-      setShowCompleteProfileForm(true);
-    } finally {
-      setIsCheckingProfileCompletion(false);
-    }
-  }, []);
 
   const signInWithApple = async () => {
     try {
@@ -207,45 +144,9 @@ export function SessionProvider({ children }: PropsWithChildren) {
         return;
       }
 
+      // TODO:
       // Only update metadata from Apple for NEW users (first time sign-up)
       // For returning users, sync from database to preserve their changes
-      if (data.session?.user && credential.fullName) {
-        try {
-          const profile = await getUserProfile(data.session.user.id);
-
-          // If user hasn't completed onboarding, save Apple's name
-          if (!profile.onboarding_date && credential.fullName) {
-            const nameParts = [];
-            if (credential.fullName.givenName)
-              nameParts.push(credential.fullName.givenName);
-            if (credential.fullName.middleName)
-              nameParts.push(credential.fullName.middleName);
-            if (credential.fullName.familyName)
-              nameParts.push(credential.fullName.familyName);
-            const fullName = nameParts.join(" ");
-
-            if (fullName) {
-              await supabase.auth.updateUser({
-                data: {
-                  name: fullName,
-                  display_name: fullName,
-                  first_name: credential.fullName.givenName,
-                  last_name: credential.fullName.familyName,
-                },
-              });
-            }
-          } else {
-            // Returning user - sync metadata from database to preserve their changes
-            await syncAuthMetadataFromProfile(data.session.user.id);
-          }
-        } catch (profileError) {
-          console.error(
-            "Error checking profile during Apple sign-in:",
-            profileError,
-          );
-          // Continue with sign-in even if profile check fails
-        }
-      }
 
       setSession(supabaseUtils.toLocalSession(data.session));
       router.replace(ROUTE.ROOT);
@@ -274,20 +175,10 @@ export function SessionProvider({ children }: PropsWithChildren) {
           token: response.data.idToken || "",
         });
 
+        // TODO:
         // Sync metadata from database to preserve user's changes
         // This ensures that if user updated their name/avatar in the app,
         // those values are restored instead of using the old Google data
-        if (data.session?.user) {
-          try {
-            await syncAuthMetadataFromProfile(data.session.user.id);
-          } catch (profileError) {
-            console.error(
-              "Error syncing profile during Google sign-in:",
-              profileError,
-            );
-            // Continue with sign-in even if sync fails
-          }
-        }
 
         setSession(supabaseUtils.toLocalSession(data.session));
         router.replace(ROUTE.ROOT);
@@ -380,8 +271,10 @@ export function SessionProvider({ children }: PropsWithChildren) {
     if (error) {
       let errorMessage = error.message;
 
-      if (error.message.includes("User already registered") ||
-          error.message.includes("user_already_exists")) {
+      if (
+        error.message.includes("User already registered") ||
+        error.message.includes("user_already_exists")
+      ) {
         errorMessage = t("error.userAlreadyExists");
       } else if (error.message.includes("email_exists")) {
         errorMessage = t("error.emailExists");
@@ -437,7 +330,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
       toast.error(result.error.message);
     } else {
       setSession(supabaseUtils.toLocalSession(result.data.session));
-      router.replace(ROUTE.EMAIL_VERIFIED);
+      router.replace(ROUTE.ROOT);
     }
   };
 
@@ -531,15 +424,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
     };
   }, [fetchSession, loadProfile, setSession]);
 
-  // Check profile completion when session user ID changes
-  useEffect(() => {
-    if (session?.user?.id) {
-      checkProfileCompletion(session.user.id);
-    } else {
-      setShowCompleteProfileForm(false);
-    }
-  }, [session?.user?.id, checkProfileCompletion]);
-
   return (
     <AuthContext.Provider
       value={{
@@ -567,10 +451,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
 
         session,
         isLoadingSession:
-          isLoadingSession ||
-          fetchingSession ||
-          isLoadingFirstOpenTimestamp ||
-          isCheckingProfileCompletion,
+          isLoadingSession || fetchingSession || isLoadingFirstOpenTimestamp,
         isLoggingIn,
         isLoggedIn: !!session?.accessToken,
         canSignInWithApple,
@@ -579,7 +460,6 @@ export function SessionProvider({ children }: PropsWithChildren) {
         showCompleteProfileForm,
         isResettingPassword,
         isUpdatingPassword,
-        isCheckingProfileCompletion,
       }}
     >
       {children}

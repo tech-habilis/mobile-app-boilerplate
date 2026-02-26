@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "Mobile App Boilerplate",
-    "slug": "mobile-app-boilerplate",
+    "name": "NFA",
+    "slug": "nfa",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "mobileappboilerplate",
+    "scheme": "nfa",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mobileappboilerplate",
+      "bundleIdentifier": "com.nfa",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "CFBundleURLTypes": [
@@ -29,9 +29,8 @@
       "adaptiveIcon": {
         "backgroundColor": "#457ce2"
       },
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.mobileappboilerplate"
+      "package": "com.nfa"
     },
     "web": {
       "output": "static",

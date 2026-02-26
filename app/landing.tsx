@@ -14,8 +14,6 @@ export default function LandingScreen() {
         <Text className="text-white text-[44px] font-ls-extrabold mb-4 mt-3.5 uppercase">
           {appName}
         </Text>
-        <Text className="text-white font-medium">Build amazing</Text>
-        <Text className="text-white font-medium">experiences</Text>
       </View>
 
       <View className="mb-safe font-inter-medium w-full px-4">

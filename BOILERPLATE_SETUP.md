@@ -180,14 +180,6 @@ This boilerplate uses a placeholder database schema. You'll need to:
 3. Generate types: `supabase gen types typescript --schema public > utilities/supabase/database.types.ts`
 4. Update `utilities/supabase/profile.ts` with your profile fetching logic
 
-### Profile Completion Flow
-
-The `complete-profile.tsx` screen is a simple template. Customize it based on your app's needs:
-
-- Add/remove form fields in `utilities/validation/profile-schema.ts`
-- Update the UI in `app/complete-profile.tsx`
-- Modify the profile store in `stores/profile-store.ts`
-
 ### Navigation
 
 Add new routes in `constants/route.ts` and create screen files in the `app/` directory.

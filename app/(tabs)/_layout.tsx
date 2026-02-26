@@ -7,17 +7,13 @@ import { ColorConst } from "@/constants/theme";
 import { ROUTE_NAME } from "@/constants/route";
 import { useTranslation } from "react-i18next";
 import IcHome from "@/components/icons/home";
-import IcLibrary from "@/components/icons/library";
-import IcAgenda from "@/components/icons/agenda";
 import IcProfile from "@/components/icons/profile";
-import TimerWidget from "@/components/timer-widget";
 
 export default function TabLayout() {
   const { t } = useTranslation();
 
   return (
     <>
-      <TimerWidget />
       <Tabs
         screenOptions={{
           tabBarActiveTintColor: ColorConst.secondary,
@@ -44,20 +40,6 @@ export default function TabLayout() {
           sceneStyle: {
             backgroundColor: 'white',
           },
-        }}
-      />
-      <Tabs.Screen
-        name={ROUTE_NAME.LIBRARY}
-        options={{
-          title: t("menu.library"),
-          tabBarIcon: ({ color }) => <IcLibrary size={28} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name={ROUTE_NAME.AGENDA}
-        options={{
-          title: t("menu.agenda"),
-          tabBarIcon: ({ color }) => <IcAgenda size={28} color={color} />,
         }}
       />
       <Tabs.Screen

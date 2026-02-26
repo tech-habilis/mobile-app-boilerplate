@@ -40,15 +40,12 @@
 
 export async function getUserProfile(userId: string) {
   // TODO: Implement based on your database schema
-  throw new Error('getUserProfile not implemented - adapt to your Supabase schema');
+  return { email: "hello@mail.com" };
 }
 
 export async function updateUserProfile(userId: string, updates: any) {
   // TODO: Implement based on your database schema
-  throw new Error('updateUserProfile not implemented - adapt to your Supabase schema');
-}
-
-export async function uploadProfileImage(userId: string, uri: string): Promise<string> {
-  // TODO: Implement based on your storage setup
-  throw new Error('uploadProfileImage not implemented - adapt to your Supabase storage setup');
+  throw new Error(
+    "updateUserProfile not implemented - adapt to your Supabase schema",
+  );
 }

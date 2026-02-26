@@ -1,6 +1,6 @@
 import IcCheckVerified from "@/components/icons/check-verified";
 import { StatusBar } from "expo-status-bar";
-import { ImageBackground, View } from "react-native";
+import { View } from "react-native";
 import Text from "@/components/text";
 import Button from "@/components/button";
 import { router } from "expo-router";
@@ -8,10 +8,7 @@ import { ROUTE } from "@/constants/route";
 
 export default function ProfileCompleted() {
   return (
-    <ImageBackground
-      source={require("../assets/images/mail-verified.png")}
-      className="size-full"
-    >
+    <View>
       <StatusBar style="light" />
       <View className="py-safe justify-center items-center flex-1 gap-2 mx-4">
         <View className="grow" />
@@ -32,6 +29,6 @@ export default function ProfileCompleted() {
           }}
         />
       </View>
-    </ImageBackground>
+    </View>
   );
 }

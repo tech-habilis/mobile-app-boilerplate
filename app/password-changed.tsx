@@ -5,16 +5,13 @@ import { ROUTE } from "@/constants/route";
 import { useSession } from "@/contexts/auth-context";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { ImageBackground, View } from "react-native";
+import { View } from "react-native";
 
 export default function PasswordChanged() {
   const { setSession } = useSession();
 
   return (
-    <ImageBackground
-      source={require("../assets/images/mail-verified.png")}
-      className="size-full"
-    >
+    <View>
       <StatusBar style="light" />
       <View className="py-safe justify-center items-center flex-1 gap-2 mx-4">
         <View className="grow" />
@@ -48,6 +45,6 @@ export default function PasswordChanged() {
           }}
         />
       </View>
-    </ImageBackground>
+    </View>
   );
 }
